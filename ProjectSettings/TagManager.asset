@@ -53,6 +53,15 @@ TagManager:
   - name: Characters
     uniqueID: 4182005669
     locked: 0
+  - name: others
+    uniqueID: 560999327
+    locked: 0
+  - name: trees backgrounds
+    uniqueID: 839695583
+    locked: 0
+  - name: trees
+    uniqueID: 2299845453
+    locked: 0
   - name: Effects
     uniqueID: 1491726745
     locked: 0
