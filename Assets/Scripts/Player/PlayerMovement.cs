@@ -8,6 +8,13 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float blockMoveMultiplier = 0.5f;
+
+    [Header("Sprint")]
+    [SerializeField] private float maxSprintSpeed = 5f;
+    [SerializeField] private float sprintIncrement = 0.2f;
+    [SerializeField] private float sprintDecay = 1f;
+    [SerializeField] private float sprintDrainRate = 15f;
 
     [Header("Boundaries")]
     [SerializeField] private Vector2 minBounds;
@@ -19,26 +26,32 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private string attackState = "Warrior_Attack1_Black";
     [SerializeField] private float  attackDuration = 0.5f;
 
-    private Rigidbody2D rb;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
-
     [Header("Combat")]
     [SerializeField] private float attackHitDelay = 0.3f;
     [SerializeField] private float attackRadius = 0.8f;
     [SerializeField] private int attackDamage = 1;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private PlayerBlock playerBlock;
+    private Stamina stamina;
 
     private Vector2 moveInput;
     private bool isAttacking;
     private float attackTimer;
     private bool hitDelivered;
     private float hitTimer;
+    private float currentSpeed;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerBlock = GetComponent<PlayerBlock>();
+        stamina = GetComponent<Stamina>();
+        currentSpeed = moveSpeed;
 
         Health health = GetComponent<Health>();
         if (health != null)
@@ -53,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         HandleAttack();
+        HandleSprint();
         HandleMovement();
         HandleAnimation();
     }
@@ -63,7 +77,11 @@ public class PlayerMovement : MonoBehaviour
         {
             attackTimer -= Time.deltaTime;
             if (attackTimer <= 0f)
+            {
                 isAttacking = false;
+                if (playerBlock != null && playerBlock.IsBlocking)
+                    playerBlock.ReturnToBlock();
+            }
 
             if (!hitDelivered)
             {
@@ -86,8 +104,7 @@ public class PlayerMovement : MonoBehaviour
         bool attackPressed = Input.GetKeyDown(KeyCode.Space);
         var gamepad = Gamepad.current;
         if (gamepad != null)
-            attackPressed |= gamepad.buttonSouth.wasPressedThisFrame
-                          || gamepad.buttonWest.wasPressedThisFrame;
+            attackPressed |= gamepad.buttonWest.wasPressedThisFrame;
 
         if (attackPressed)
         {
@@ -96,6 +113,32 @@ public class PlayerMovement : MonoBehaviour
             hitDelivered = false;
             hitTimer = attackHitDelay;
             animator.Play(attackState, 0, 0f);
+        }
+    }
+
+    private void HandleSprint()
+    {
+        bool blocking = playerBlock != null && playerBlock.IsBlocking;
+        if (isAttacking || blocking)
+        {
+            currentSpeed = moveSpeed;
+            return;
+        }
+
+        var gamepad = Gamepad.current;
+        if (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame)
+            currentSpeed = Mathf.Min(currentSpeed + sprintIncrement, maxSprintSpeed);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            currentSpeed = Mathf.Min(currentSpeed + sprintIncrement, maxSprintSpeed);
+
+        if (currentSpeed > moveSpeed)
+        {
+            stamina?.Drain(sprintDrainRate * Time.deltaTime);
+            if (stamina != null && stamina.IsEmpty)
+                currentSpeed = moveSpeed;
+            else
+                currentSpeed = Mathf.Max(currentSpeed - sprintDecay * Time.deltaTime, moveSpeed);
         }
     }
 
@@ -110,13 +153,11 @@ public class PlayerMovement : MonoBehaviour
         float x = 0f;
         float y = 0f;
 
-        // Teclado
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))  x =  1f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))   x = -1f;
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))     y =  1f;
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))   y = -1f;
 
-        // Mando
         var gamepad = Gamepad.current;
         if (gamepad != null)
         {
@@ -127,13 +168,15 @@ public class PlayerMovement : MonoBehaviour
 
         moveInput = new Vector2(x, y).normalized;
 
-        if (x != 0)
+        bool blocking = playerBlock != null && playerBlock.IsBlocking;
+        if (!blocking && x != 0)
             spriteRenderer.flipX = x < 0;
     }
 
     private void HandleAnimation()
     {
         if (isAttacking) return;
+        if (playerBlock != null && playerBlock.IsBlocking) return;
 
         string targetState = moveInput != Vector2.zero ? runState : idleState;
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName(targetState))
@@ -142,7 +185,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        bool blocking = playerBlock != null && playerBlock.IsBlocking;
+        float speed = blocking ? moveSpeed * blockMoveMultiplier : currentSpeed;
+        rb.linearVelocity = moveInput * speed;
 
         if (minBounds != maxBounds)
         {
