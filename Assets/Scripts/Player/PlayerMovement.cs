@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private PlayerBlock playerBlock;
     private Stamina stamina;
+    private GameOverScreen gameOverScreen;
 
     private Vector2 moveInput;
     private bool isAttacking;
@@ -53,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
         stamina = GetComponent<Stamina>();
         currentSpeed = moveSpeed;
 
+        gameOverScreen = FindAnyObjectByType<GameOverScreen>(FindObjectsInactive.Include);
+
         Health health = GetComponent<Health>();
         if (health != null)
             health.OnDeath += OnPlayerDeath;
@@ -60,7 +63,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (gameOverScreen != null)
+            gameOverScreen.Show();
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void Update()

@@ -19,6 +19,18 @@ public class PlayerHUD : MonoBehaviour
             playerHealth.OnChanged -= UpdateBar;
     }
 
+    public void Connect(Health health)
+    {
+        if (playerHealth != null)
+            playerHealth.OnChanged -= UpdateBar;
+        playerHealth = health;
+        if (playerHealth != null)
+        {
+            playerHealth.OnChanged += UpdateBar;
+            UpdateBar(playerHealth.Current, playerHealth.Max);
+        }
+    }
+
     private void UpdateBar(int current, int max)
     {
         fillBar.fillAmount = (float)current / max;
