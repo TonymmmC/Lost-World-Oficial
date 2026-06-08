@@ -19,6 +19,18 @@ public class StaminaBar : MonoBehaviour
             playerStamina.OnChanged -= UpdateBar;
     }
 
+    public void Connect(Stamina stamina)
+    {
+        if (playerStamina != null)
+            playerStamina.OnChanged -= UpdateBar;
+        playerStamina = stamina;
+        if (playerStamina != null)
+        {
+            playerStamina.OnChanged += UpdateBar;
+            UpdateBar(playerStamina.Current, playerStamina.Max);
+        }
+    }
+
     private void UpdateBar(float current, float max)
     {
         fillBar.fillAmount = current / max;
