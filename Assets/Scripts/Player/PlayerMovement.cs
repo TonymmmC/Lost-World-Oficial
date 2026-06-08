@@ -30,12 +30,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float attackHitDelay = 0.3f;
     [SerializeField] private float attackRadius = 0.8f;
     [SerializeField] private int attackDamage = 1;
+    [SerializeField] private float attackFrontDot = 0.3f;
+    [SerializeField] private float attackAngleOffset = 0f;
+
+    [Header("Knockback")]
+    [SerializeField] private float knockbackForce = 4f;
+    [SerializeField] private float knockbackDuration = 0.12f;
 
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private PlayerBlock playerBlock;
     private Stamina stamina;
+    private Health health;
+
+    private Vector2 knockbackVelocity;
+    private float knockbackTimer;
 
     private Vector2 moveInput;
     private bool isAttacking;
@@ -43,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private bool hitDelivered;
     private float hitTimer;
     private float currentSpeed;
+    private bool sprintToggled;
 
     private void Awake()
     {
@@ -53,14 +64,34 @@ public class PlayerMovement : MonoBehaviour
         stamina = GetComponent<Stamina>();
         currentSpeed = moveSpeed;
 
-        Health health = GetComponent<Health>();
+        health = GetComponent<Health>();
         if (health != null)
+        {
             health.OnDeath += OnPlayerDeath;
+            health.OnDamaged += AplicarKnockback;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (health != null)
+        {
+            health.OnDeath -= OnPlayerDeath;
+            health.OnDamaged -= AplicarKnockback;
+        }
     }
 
     private void OnPlayerDeath()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void AplicarKnockback(Vector2 origen)
+    {
+        Vector2 dir = ((Vector2)transform.position - origen).normalized;
+        if (dir == Vector2.zero) return;
+        knockbackVelocity = dir * knockbackForce;
+        knockbackTimer = knockbackDuration;
     }
 
     private void Update()
@@ -89,12 +120,14 @@ public class PlayerMovement : MonoBehaviour
                 if (hitTimer <= 0f)
                 {
                     hitDelivered = true;
+                    Vector2 facing = FacingAtaque();
                     Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRadius);
                     foreach (var hit in hits)
                     {
                         if (hit.gameObject == gameObject) continue;
+                        if (!CombatUtils.EnFrente(transform.position, facing, hit.transform.position, attackFrontDot)) continue;
                         Health h = hit.GetComponent<Health>() ?? hit.GetComponentInParent<Health>();
-                        h?.TakeDamage(attackDamage);
+                        h?.TakeDamage(attackDamage, transform.position);
                     }
                 }
             }
@@ -122,22 +155,35 @@ public class PlayerMovement : MonoBehaviour
         if (isAttacking || blocking)
         {
             currentSpeed = moveSpeed;
+            sprintToggled = false;
             return;
         }
 
+        // Teclado: Shift es interruptor on/off.
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            sprintToggled = !sprintToggled;
+            if (!sprintToggled) currentSpeed = moveSpeed;
+        }
+
+        // Mando: cada pulsacion sube la velocidad (con decaimiento).
         var gamepad = Gamepad.current;
         if (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame)
             currentSpeed = Mathf.Min(currentSpeed + sprintIncrement, maxSprintSpeed);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            currentSpeed = Mathf.Min(currentSpeed + sprintIncrement, maxSprintSpeed);
+        bool moving = moveInput.sqrMagnitude > 0.01f;
+        if (sprintToggled)
+            currentSpeed = moving ? maxSprintSpeed : moveSpeed;
 
         if (currentSpeed > moveSpeed)
         {
             stamina?.Drain(sprintDrainRate * Time.deltaTime);
             if (stamina != null && stamina.IsEmpty)
+            {
                 currentSpeed = moveSpeed;
-            else
+                sprintToggled = false;
+            }
+            else if (!sprintToggled)
                 currentSpeed = Mathf.Max(currentSpeed - sprintDecay * Time.deltaTime, moveSpeed);
         }
     }
@@ -185,6 +231,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (knockbackTimer > 0f)
+        {
+            knockbackTimer -= Time.fixedDeltaTime;
+            rb.linearVelocity = knockbackVelocity;
+            return;
+        }
+
         bool blocking = playerBlock != null && playerBlock.IsBlocking;
         float speed = blocking ? moveSpeed * blockMoveMultiplier : currentSpeed;
         rb.linearVelocity = moveInput * speed;
@@ -196,5 +249,21 @@ public class PlayerMovement : MonoBehaviour
             pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
             rb.position = pos;
         }
+    }
+
+    private Vector2 FacingAtaque()
+    {
+        SpriteRenderer sr = spriteRenderer != null ? spriteRenderer : GetComponent<SpriteRenderer>();
+        Vector2 f = Quaternion.Euler(0f, 0f, attackAngleOffset) * Vector3.right;
+        if (sr != null && sr.flipX) f.x = -f.x;
+        return f;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.color = Color.magenta;
+        CombatUtils.DibujarCono(transform.position, FacingAtaque(), attackFrontDot, attackRadius);
     }
 }
