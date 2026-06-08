@@ -21,6 +21,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform pointB;
     [SerializeField] private float waitAtPointTime = 1f;
 
+    [Header("Evasion de paredes")]
+    [SerializeField] private LayerMask wallMask;
+    [SerializeField] private float avoidDistance = 1f;
+    [SerializeField] private float avoidRadius = 0.3f;
+
     [Header("Animation")]
     [SerializeField] private string idleState   = "Warrior_Idle_Purple";
     [SerializeField] private string runState    = "Warrior_Run_Purple";
@@ -33,10 +38,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private float attackHitDelay = 0.3f;
     [SerializeField] private float blockKnockbackForce = 4f;
+    [SerializeField] private float knockbackRecibidoForce = 5f;
 
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private Health health;
 
     private State currentState = State.Idle;
     private Transform patrolTarget;
@@ -62,11 +69,31 @@ public class Enemy : MonoBehaviour
         if (pointA != null && pointB != null)
             currentState = State.Patrol;
 
-        Health health = GetComponent<Health>();
+        health = GetComponent<Health>();
         if (health != null)
+        {
             health.OnDeath += OnDeath;
+            health.OnDamaged += AplicarKnockbackRecibido;
+        }
         else
             Debug.LogWarning($"{gameObject.name} no tiene componente Health");
+    }
+
+    private void OnDestroy()
+    {
+        if (health != null)
+        {
+            health.OnDeath -= OnDeath;
+            health.OnDamaged -= AplicarKnockbackRecibido;
+        }
+    }
+
+    private void AplicarKnockbackRecibido(Vector2 origen)
+    {
+        Vector2 dir = ((Vector2)transform.position - origen).normalized;
+        if (dir == Vector2.zero) return;
+        rb.linearVelocity = dir * knockbackRecibidoForce;
+        knockbackTimer = 0.15f;
     }
 
     private void Update()
@@ -157,7 +184,7 @@ public class Enemy : MonoBehaviour
                 bool sameFaction = targetEnemy != null && targetEnemy.FactionId == factionId;
                 if (Vector2.Distance(transform.position, chaseTarget.position) <= attackRange && targetHealth != null && !sameFaction)
                 {
-                    bool blocked = targetHealth.TakeDamage(attackDamage);
+                    bool blocked = targetHealth.TakeDamage(attackDamage, transform.position);
                     if (blocked)
                     {
                         Vector2 knockDir = ((Vector2)transform.position - (Vector2)chaseTarget.position).normalized;
@@ -222,6 +249,7 @@ public class Enemy : MonoBehaviour
         Vector2 dir = ((Vector2)target - rb.position).normalized;
         Vector2 perp = Vector2.Perpendicular(dir) * Mathf.Sin(Time.time * 4f) * 0.4f;
         Vector2 finalDir = (dir + perp).normalized;
+        finalDir = Steering.EvitarParedes(rb.position, finalDir, avoidDistance, avoidRadius, wallMask);
         rb.linearVelocity = finalDir * speed;
         spriteRenderer.flipX = finalDir.x < 0;
         PlayAnim(runState);
