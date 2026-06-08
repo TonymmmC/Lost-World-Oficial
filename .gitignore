@@ -29,3 +29,6 @@ MemoryCaptures/
 CLAUDE.md
 PLAN.md
 ignore.conf
+
+# Plastic SCM (metadata, no del juego)
+.plastic/
