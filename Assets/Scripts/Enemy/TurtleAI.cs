@@ -14,6 +14,13 @@ public class TurtleAI : MonoBehaviour
     [SerializeField] private float showRange = 5f;
     [SerializeField] private float showDelay = 2f;
 
+    [Header("Muerte")]
+    [SerializeField] private GameObject deathEffectPrefab;
+
+    [Header("Empuje en caparazon")]
+    [SerializeField] private float pushForce = 3f;
+    [SerializeField] private float pushDuration = 0.25f;
+
     private static readonly int IdleHash     = Animator.StringToHash("Turtle_Idle");
     private static readonly int RunHash      = Animator.StringToHash("Turtle_Run");
     private static readonly int GuardInHash  = Animator.StringToHash("Turtle_Guard_In");
@@ -22,20 +29,57 @@ public class TurtleAI : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private Transform player;
+    private Health health;
 
     private State currentState = State.Idle;
     private Vector2 wanderDir;
     private float stateTimer;
     private float showDelayTimer;
+    private float searchTimer;
+    private float distToThreat = Mathf.Infinity;
+    private Vector2 pushVelocity;
+    private float pushTimer;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        player = GameObject.FindWithTag("Player")?.transform;
-        if (player == null) Debug.LogError($"{name}: no encontro al Player — verifica que el tag sea exactamente 'Player'");
+        health = GetComponent<Health>();
+        if (health != null)
+        {
+            health.BlockCheck = _ => EstaEscondida();
+            health.OnDeath += ManejarMuerte;
+            health.OnBlockedFrom += Empujar;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (health == null) return;
+        health.OnDeath -= ManejarMuerte;
+        health.OnBlockedFrom -= Empujar;
+    }
+
+    private void Empujar(Vector2 origen)
+    {
+        if (!EstaEscondida()) return;
+        Vector2 dir = ((Vector2)transform.position - origen).normalized;
+        if (dir == Vector2.zero) return;
+        pushVelocity = dir * pushForce;
+        pushTimer = pushDuration;
+    }
+
+    private bool EstaEscondida()
+    {
+        return currentState == State.Hidden || currentState == State.HidingIn;
+    }
+
+    private void ManejarMuerte()
+    {
+        if (deathEffectPrefab != null)
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void Start()
@@ -45,11 +89,10 @@ public class TurtleAI : MonoBehaviour
 
     private void Update()
     {
-        if (player == null) return;
+        ActualizarAmenaza();
+        float distToPlayer = distToThreat;
 
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
-
-switch (currentState)
+        switch (currentState)
         {
             case State.Wander:
             case State.Idle:
@@ -86,6 +129,26 @@ switch (currentState)
                     EnterIdle();
                 break;
         }
+    }
+
+    private void ActualizarAmenaza()
+    {
+        searchTimer -= Time.deltaTime;
+        if (searchTimer > 0f) return;
+        searchTimer = 0.2f;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, showRange + 1f);
+        float nearest = Mathf.Infinity;
+        foreach (var hit in hits)
+        {
+            if (hit.gameObject == gameObject) continue;
+            Health h = hit.GetComponent<Health>() ?? hit.GetComponentInParent<Health>();
+            if (h == null || h == health || h.IsDead) continue;
+            Vector2 puntoCercano = hit.ClosestPoint(transform.position);
+            float d = Vector2.Distance(transform.position, puntoCercano);
+            if (d < nearest) nearest = d;
+        }
+        distToThreat = nearest;
     }
 
     private void HandleWanderIdle()
@@ -133,9 +196,16 @@ switch (currentState)
 
     private void FixedUpdate()
     {
+        if (pushTimer > 0f)
+        {
+            pushTimer -= Time.fixedDeltaTime;
+            rb.linearVelocity = pushVelocity;
+            return;
+        }
+
         if (currentState == State.Wander)
             rb.linearVelocity = wanderDir * moveSpeed;
-        else if (currentState != State.Hidden)
+        else
             rb.linearVelocity = Vector2.zero;
     }
 
