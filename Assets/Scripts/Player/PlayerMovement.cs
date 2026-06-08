@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerBlock playerBlock;
     private Stamina stamina;
     private Health health;
+    private GameOverScreen gameOverScreen;
 
     private Vector2 knockbackVelocity;
     private float knockbackTimer;
@@ -64,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         stamina = GetComponent<Stamina>();
         currentSpeed = moveSpeed;
 
+        gameOverScreen = FindAnyObjectByType<GameOverScreen>(FindObjectsInactive.Include);
         health = GetComponent<Health>();
         if (health != null)
         {
@@ -83,7 +85,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (gameOverScreen != null)
+            gameOverScreen.Show();
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void AplicarKnockback(Vector2 origen)
