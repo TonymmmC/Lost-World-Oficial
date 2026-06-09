@@ -23,6 +23,10 @@ public class EnemyADistancia : EnemyAI
     protected override bool MantieneDistancia => true;
     protected override bool AtaqueEnCurso => atacando;
 
+    // Forma robable: como melee robado golpea con la animacion de disparo y el danio del proyectil.
+    public override string AttackAnim => attackAnim;
+    public override int DanioAtaque => danioProyectil;
+
     protected override void Awake()
     {
         base.Awake();

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -61,8 +60,8 @@ public class PlayerMovement : MonoBehaviour
     private Stamina stamina;
     private Health health;
     private StatusLentitud lentitud;
-    private GameOverScreen gameOverScreen;
     private PlayerWeapons weapons;
+    private PlayerTransformacion transformacion;
 
     private Vector2 knockbackVelocity;
     private float knockbackTimer;
@@ -91,10 +90,10 @@ public class PlayerMovement : MonoBehaviour
         playerBlock = GetComponent<PlayerBlock>();
         stamina = GetComponent<Stamina>();
         weapons = GetComponent<PlayerWeapons>();
+        transformacion = GetComponent<PlayerTransformacion>();
         lentitud = GetComponent<StatusLentitud>();
         currentSpeed = moveSpeed;
 
-        gameOverScreen = FindAnyObjectByType<GameOverScreen>(FindObjectsInactive.Include);
         health = GetComponent<Health>();
         if (health != null)
         {
@@ -114,10 +113,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        if (gameOverScreen != null)
-            gameOverScreen.Show();
-        else
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        enabled = false;
+        GameOverScreen.Mostrar();
     }
 
     private void AplicarKnockback(Vector2 origen)
@@ -136,12 +133,16 @@ public class PlayerMovement : MonoBehaviour
         HandleAnimation();
     }
 
-    // Getters que respetan la forma activa (PlayerWeapons). Sin formas: usa los campos
-    // serializados de este script como fallback (guerrero melee).
-    private bool ConFormas => weapons != null && weapons.enabled && weapons.Listo;
-    private string EstadoIdle => ConFormas ? weapons.Forma.idleState : idleState;
-    private string EstadoRun  => ConFormas ? weapons.Forma.runState  : runState;
-    private float DelayGolpe => ConFormas ? weapons.Forma.delayGolpe : attackHitDelay;
+    // Forma activa segun prioridad: forma robada (transformacion) > forma de PlayerWeapons >
+    // null (Wukong standalone, usa los campos serializados de este script).
+    private bool Transformado => transformacion != null && transformacion.Activa;
+    private PlayerForma FormaActiva =>
+        Transformado ? transformacion.Forma
+        : (weapons != null && weapons.enabled && weapons.Listo ? weapons.Forma : null);
+    private bool ConForma => FormaActiva != null;
+    private string EstadoIdle => ConForma ? FormaActiva.idleState : idleState;
+    private string EstadoRun  => ConForma ? FormaActiva.runState  : runState;
+    private float DelayGolpe => ConForma ? FormaActiva.delayGolpe : attackHitDelay;
 
     private void HandleAttack()
     {
@@ -151,22 +152,33 @@ public class PlayerMovement : MonoBehaviour
         if (isAttacking) { ActualizarAtaque(); return; }
         if (curando) { ActualizarCura(); return; }
 
-        if (CuraPresionada() && healCooldownTimer <= 0f) { IniciarCura(); return; }
-        if (FuertePresionado() && heavyTimer <= 0f) { IniciarAtaque(true); return; }
+        if (TransformarPresionado() && transformacion != null && transformacion.TieneForma)
+        { transformacion.Alternar(); return; }
+
+        // Curacion y ataque fuerte usan estados propios de Wukong; transformado no existen.
+        if (!Transformado && CuraPresionada() && healCooldownTimer <= 0f) { IniciarCura(); return; }
+        if (!Transformado && FuertePresionado() && heavyTimer <= 0f) { IniciarAtaque(true); return; }
         if (AtaquePresionado()) IniciarAtaque(false);
     }
 
     private void ActualizarAtaque()
     {
         attackTimer -= Time.deltaTime;
-        if (AnimacionTermino(accionState) || attackTimer <= 0f)
+        bool termino = AnimacionTermino(accionState) || attackTimer <= 0f;
+
+        // El golpe se entrega siempre, aunque la animacion termine antes del delay (las
+        // animaciones de ataque robadas a enemigos suelen ser mas cortas que el delay del jugador).
+        if (!hitDelivered)
+        {
+            hitTimer -= Time.deltaTime;
+            if (hitTimer <= 0f || termino) { hitDelivered = true; EjecutarGolpe(); }
+        }
+
+        if (termino)
         {
             isAttacking = false;
             if (playerBlock != null && playerBlock.IsBlocking) playerBlock.ReturnToBlock();
         }
-        if (hitDelivered) return;
-        hitTimer -= Time.deltaTime;
-        if (hitTimer <= 0f) { hitDelivered = true; EjecutarGolpe(); }
     }
 
     // True cuando ya estamos en la animacion de la accion y llego al final.
@@ -197,6 +209,14 @@ public class PlayerMovement : MonoBehaviour
         bool p = Input.GetKeyDown(KeyCode.H);
         var gamepad = Gamepad.current;
         if (gamepad != null) p |= gamepad.buttonEast.wasPressedThisFrame; // B
+        return p;
+    }
+
+    private bool TransformarPresionado()
+    {
+        bool p = Input.GetKeyDown(KeyCode.T);
+        var gamepad = Gamepad.current;
+        if (gamepad != null) p |= gamepad.rightShoulder.wasPressedThisFrame; // RB
         return p;
     }
 
@@ -232,8 +252,8 @@ public class PlayerMovement : MonoBehaviour
 
     private string ElegirEstadoAtaque()
     {
-        string a1 = ConFormas ? weapons.Forma.attackState  : attackState;
-        string a2 = ConFormas ? weapons.Forma.attackState2 : attackState2;
+        string a1 = ConForma ? FormaActiva.attackState  : attackState;
+        string a2 = ConForma ? FormaActiva.attackState2 : attackState2;
         if (string.IsNullOrEmpty(a2)) return a1; // sin combo (arquero, lancero)
         string elegido = usarAtaque2 ? a2 : a1;  // alterna para sensacion de combo
         usarAtaque2 = !usarAtaque2;
@@ -248,11 +268,11 @@ public class PlayerMovement : MonoBehaviour
             if (GolpearArea(facing, heavyRadius, attackFrontDot, heavyDamage)) ImpactoFuerte();
             return;
         }
-        if (ConFormas && weapons.Forma.tipoAtaque == TipoAtaque.Arco) { weapons.Disparar(facing); return; }
+        if (!Transformado && ConForma && weapons.Forma.tipoAtaque == TipoAtaque.Arco) { weapons.Disparar(facing); return; }
         GolpearArea(facing,
-            ConFormas ? weapons.Forma.alcance : attackRadius,
-            ConFormas ? weapons.Forma.frontDot : attackFrontDot,
-            ConFormas ? weapons.Forma.danio : attackDamage);
+            ConForma ? FormaActiva.alcance : attackRadius,
+            ConForma ? FormaActiva.frontDot : attackFrontDot,
+            ConForma ? FormaActiva.danio : attackDamage);
     }
 
     // Jugo del golpe pesado al conectar: hit stop mas largo + sacudida de camara = peso.
@@ -271,7 +291,14 @@ public class PlayerMovement : MonoBehaviour
             if (hit.gameObject == gameObject) continue;
             if (!ataqueCircular && !CombatUtils.EnFrente(transform.position, facing, hit.transform.position, dot)) continue;
             Health h = hit.GetComponent<Health>() ?? hit.GetComponentInParent<Health>();
-            if (h != null) { h.TakeDamage(dano, transform.position); golpeo = true; }
+            if (h == null) continue;
+            h.TakeDamage(dano, transform.position);
+            golpeo = true;
+            if (h.IsDead && transformacion != null)
+            {
+                EnemyAI ai = h.GetComponent<EnemyAI>();
+                if (ai != null) transformacion.RobarForma(ai);
+            }
         }
         return golpeo;
     }

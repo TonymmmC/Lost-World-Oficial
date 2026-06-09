@@ -1,13 +1,15 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+// Pausa el juego con Escape o el boton Start del mando y muestra un menu
+// construido por codigo: CONTINUA, REINICIAR, SALIR. SALIR cierra el juego.
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pausePanel;
-    [SerializeField] private GameObject firstSelected;
-    private bool isPaused;
+    private const string EscenaJuego = "World";
+
+    private bool enPausa;
+    private GameObject menu;
     private PlayerMovement playerMovement;
 
     private void Start()
@@ -15,35 +17,61 @@ public class PauseMenu : MonoBehaviour
         playerMovement = FindAnyObjectByType<PlayerMovement>();
     }
 
-    void Update()
+    private void Update()
     {
-        bool pausePressed = Input.GetKeyDown(KeyCode.Escape);
-        var gamepad = Gamepad.current;
-        if (gamepad != null)
-            pausePressed |= gamepad.startButton.wasPressedThisFrame;
-
-        if (pausePressed)
-            Toggle();
+        if (PausaPresionada())
+            Alternar();
     }
 
-    public void Toggle()
-    {
-        isPaused = !isPaused;
-        pausePanel.SetActive(isPaused);
-        Time.timeScale = isPaused ? 0f : 1f;
-
-        if (playerMovement != null)
-            playerMovement.enabled = !isPaused;
-
-        if (isPaused && firstSelected != null)
-            EventSystem.current.SetSelectedGameObject(firstSelected);
-    }
-
-    public void Resume() => Toggle();
-
-    public void GoToMainMenu()
+    private void OnDestroy()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+    }
+
+    private bool PausaPresionada()
+    {
+        bool teclado = Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
+        bool mando = Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame;
+        return teclado || mando;
+    }
+
+    private void Alternar()
+    {
+        if (enPausa) Continuar();
+        else Pausar();
+    }
+
+    private void Pausar()
+    {
+        enPausa = true;
+        Time.timeScale = 0f;
+        if (playerMovement != null) playerMovement.enabled = false;
+
+        menu = MenuUI.Construir("PAUSA",
+            new MenuUI.Opcion("CONTINUA", Continuar),
+            new MenuUI.Opcion("REINICIAR", Reiniciar),
+            new MenuUI.Opcion("SALIR", Salir));
+    }
+
+    public void Continuar()
+    {
+        enPausa = false;
+        Time.timeScale = 1f;
+        if (playerMovement != null) playerMovement.enabled = true;
+        if (menu != null) Destroy(menu);
+    }
+
+    public void Reiniciar()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(EscenaJuego);
+    }
+
+    public void Salir()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

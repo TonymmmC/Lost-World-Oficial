@@ -27,6 +27,10 @@ public class ViperAI : EnemyAI
     protected override bool DetenerEnAtaque => false;
     protected override bool AtaqueEnCurso => embistiendo;
 
+    // Forma robable: el jugador transformado muerde con la animacion y el danio de la vibora.
+    public override string AttackAnim => attackAnim;
+    public override int DanioAtaque => danioMordida;
+
     protected override void Awake()
     {
         base.Awake();
