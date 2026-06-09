@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: af3f9e482bbe11e469f53ffcf62c6808
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -34675306711651048
+    second: Skull_Dead_0
+  - first:
+      213: -988351804490100825
+    second: Skull_Dead_1
+  - first:
+      213: -1140290397839966802
+    second: Skull_Dead_2
+  - first:
+      213: -8368665901610957227
+    second: Skull_Dead_3
+  - first:
+      213: 80312175076930464
+    second: Skull_Dead_4
+  - first:
+      213: 3113415954645155665
+    second: Skull_Dead_5
+  - first:
+      213: -631028022246170468
+    second: Skull_Dead_6
+  - first:
+      213: -7045453209870316486
+    second: Skull_Dead_7
+  - first:
+      213: -1813528610371917176
+    second: Skull_Dead_8
+  - first:
+      213: -3819964911933745721
+    second: Skull_Dead_9
+  - first:
+      213: -5222740796811474502
+    second: Skull_Dead_10
+  - first:
+      213: 6997842787066861564
+    second: Skull_Dead_11
+  - first:
+      213: 1725163759990856528
+    second: Skull_Dead_12
+  - first:
+      213: 1266595502549821971
+    second: Skull_Dead_13
+  - first:
+      213: 2384887299046153309
+    second: Skull_Dead_14
+  - first:
+      213: 4833468741818165240
+    second: Skull_Dead_15
+  - first:
+      213: -1403747851507793963
+    second: Skull_Dead_16
+  - first:
+      213: -2060210030582541770
+    second: Skull_Dead_17
+  - first:
+      213: 453067637961852022
+    second: Skull_Dead_18
+  - first:
+      213: -4374998782988345767
+    second: Skull_Dead_19
+  - first:
+      213: -7176189292371535232
+    second: Skull_Dead_20
+  - first:
+      213: 7616881256808373073
+    second: Skull_Dead_21
+  - first:
+      213: -5862469865105191130
+    second: Skull_Dead_22
+  - first:
+      213: 7307862252653523808
+    second: Skull_Dead_23
+  - first:
+      213: -7837626041186930465
+    second: Skull_Dead_24
+  - first:
+      213: -2291655546549192874
+    second: Skull_Dead_25
+  - first:
+      213: -594392350995485704
+    second: Skull_Dead_26
+  - first:
+      213: -7222809744461908416
+    second: Skull_Dead_27
+  - first:
+      213: 1175862041612514817
+    second: Skull_Dead_28
+  - first:
+      213: 5450926815642984930
+    second: Skull_Dead_29
+  - first:
+      213: 2557555053452056637
+    second: Skull_Dead_30
+  - first:
+      213: -2206987826412942196
+    second: Skull_Dead_31
+  - first:
+      213: -7151580621231469740
+    second: Skull_Dead_32
+  - first:
+      213: 3556878728653194916
+    second: Skull_Dead_33
+  - first:
+      213: 7351807640442849412
+    second: Skull_Dead_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 50
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Skull_Dead_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 45
+        width: 59
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d69f40efec48ff0800000000000000
+      internalID: -34675306711651048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_1
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 36
+        width: 67
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7af4044354ba842f0800000000000000
+      internalID: -988351804490100825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_18
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 20
+        width: 84
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67401f3cd9e994600800000000000000
+      internalID: 453067637961852022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_21
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 29
+        width: 77
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15bd468a52994b960800000000000000
+      internalID: 7616881256808373073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_23
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 25
+        width: 83
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06336e4000eba6560800000000000000
+      internalID: 7307862252653523808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_26
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 14
+        width: 102
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fb64b55e4b40c7f0800000000000000
+      internalID: -594392350995485704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_30
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 17
+        width: 84
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d38d38645c24e7320800000000000000
+      internalID: 2557555053452056637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_31
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 15
+        width: 86
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8c8b07d3443f51e0800000000000000
+      internalID: -2206987826412942196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull_Dead_34
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 16
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4884991f81ed60660800000000000000
+      internalID: 7351807640442849412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9b9803de223cce540a8daafcf5f4defa
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Skull_Dead_0: -34675306711651048
+      Skull_Dead_1: -988351804490100825
+      Skull_Dead_10: -5222740796811474502
+      Skull_Dead_11: 6997842787066861564
+      Skull_Dead_12: 1725163759990856528
+      Skull_Dead_13: 1266595502549821971
+      Skull_Dead_14: 2384887299046153309
+      Skull_Dead_15: 4833468741818165240
+      Skull_Dead_16: -1403747851507793963
+      Skull_Dead_17: -2060210030582541770
+      Skull_Dead_18: 453067637961852022
+      Skull_Dead_19: -4374998782988345767
+      Skull_Dead_2: -1140290397839966802
+      Skull_Dead_20: -7176189292371535232
+      Skull_Dead_21: 7616881256808373073
+      Skull_Dead_22: -5862469865105191130
+      Skull_Dead_23: 7307862252653523808
+      Skull_Dead_24: -7837626041186930465
+      Skull_Dead_25: -2291655546549192874
+      Skull_Dead_26: -594392350995485704
+      Skull_Dead_27: -7222809744461908416
+      Skull_Dead_28: 1175862041612514817
+      Skull_Dead_29: 5450926815642984930
+      Skull_Dead_3: -8368665901610957227
+      Skull_Dead_30: 2557555053452056637
+      Skull_Dead_31: -2206987826412942196
+      Skull_Dead_32: -7151580621231469740
+      Skull_Dead_33: 3556878728653194916
+      Skull_Dead_34: 7351807640442849412
+      Skull_Dead_4: 80312175076930464
+      Skull_Dead_5: 3113415954645155665
+      Skull_Dead_6: -631028022246170468
+      Skull_Dead_7: -7045453209870316486
+      Skull_Dead_8: -1813528610371917176
+      Skull_Dead_9: -3819964911933745721
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
