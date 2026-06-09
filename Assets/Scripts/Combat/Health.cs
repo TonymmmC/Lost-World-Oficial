@@ -42,4 +42,12 @@ public class Health : MonoBehaviour
         Current = maxHealth;
         OnChanged?.Invoke(Current, maxHealth);
     }
+
+    // Restaura vida sin pasar del maximo. No revive si ya esta muerto.
+    public void Curar(int cantidad)
+    {
+        if (cantidad <= 0 || IsDead) return;
+        Current = Mathf.Min(maxHealth, Current + cantidad);
+        OnChanged?.Invoke(Current, maxHealth);
+    }
 }
