@@ -19,6 +19,10 @@ public abstract class EnemyMeleeAnimado : EnemyAI
 
     protected override bool AtaqueEnCurso => atacando;
 
+    // Forma robable: el jugador usa la animacion y el danio de este melee al transformarse.
+    public override string AttackAnim => attackAnim;
+    public override int DanioAtaque => danioAtaque;
+
     protected override void Awake()
     {
         base.Awake();

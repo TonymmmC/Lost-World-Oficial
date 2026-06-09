@@ -34,6 +34,10 @@ public class MinotaurAI : EnemyAI
     protected override bool DetenerEnAtaque => false;
     protected override bool AtaqueEnCurso => fase != Fase.Listo;
 
+    // Forma robable: el jugador transformado embiste con la animacion y el danio del minotauro.
+    public override string AttackAnim => attackAnim;
+    public override int DanioAtaque => danioCarga;
+
     protected override void Awake()
     {
         base.Awake();

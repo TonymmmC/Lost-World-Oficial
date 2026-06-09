@@ -82,6 +82,17 @@ public abstract class EnemyAI : MonoBehaviour
 
     protected Transform Objetivo => currentTarget;
 
+    // --- Datos de la forma (para el robo de forma del jugador) ---
+    // El jugador construye una PlayerForma con esto al matar al enemigo. Los melee
+    // sobrescriben AttackAnim y DanioAtaque; el resto usa los valores base.
+    public RuntimeAnimatorController Controller =>
+        animator != null ? animator.runtimeAnimatorController : GetComponent<Animator>()?.runtimeAnimatorController;
+    public string IdleAnim => idleAnim;
+    public string RunAnim => runAnim;
+    public float AlcanceAtaque => attackRange;
+    public virtual string AttackAnim => idleAnim;
+    public virtual int DanioAtaque => 1;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

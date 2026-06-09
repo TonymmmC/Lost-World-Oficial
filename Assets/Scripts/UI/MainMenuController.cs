@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    public void PlayGame() => SceneManager.LoadScene("World");
+    public void PlayGame() => StorySequence.Iniciar();
 
     public void QuitGame()
     {

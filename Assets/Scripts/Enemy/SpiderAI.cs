@@ -31,6 +31,10 @@ public class SpiderAI : EnemyAI
     protected override bool DetenerEnAtaque => false;
     protected override bool AtaqueEnCurso => atacando || skittering;
 
+    // Forma robable: la telarana ralentiza (danio 0); como melee robado pega 1.
+    public override string AttackAnim => attackAnim;
+    public override int DanioAtaque => 1;
+
     protected override void Awake()
     {
         base.Awake();
