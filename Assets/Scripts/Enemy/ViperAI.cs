@@ -50,7 +50,7 @@ public class ViperAI : EnemyAI
         mordidaEntregada = false;
         embestidaTimer = duracionEmbestida;
         attackTimer = cooldownMordida;
-        animator.Play(attackHash, 0, 0f);
+        ReproducirDesdeInicio(attackHash);
         if (Objetivo != null)
         {
             Vector2 dir = ((Vector2)Objetivo.position - (Vector2)transform.position).normalized;

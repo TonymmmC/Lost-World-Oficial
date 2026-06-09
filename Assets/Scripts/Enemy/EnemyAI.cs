@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // Base de todos los enemigos agresivos. Centraliza lo comun: deteccion por faccion,
@@ -30,6 +31,12 @@ public abstract class EnemyAI : MonoBehaviour
     [SerializeField] protected float returnSpeed = 2f;
     [SerializeField] protected float attackRange = 1f;
 
+    [Header("Cansancio al huir (solo enemigos a distancia)")]
+    // Cuanto puede huir seguido antes de cansarse, y cuanto queda plantado (vulnerable)
+    // al cansarse. Evita el kiting infinito: el arquero se deja alcanzar al cansarse.
+    [SerializeField] private float kiteResistencia = 2.5f;
+    [SerializeField] private float kiteRecuperacion = 1.5f;
+
     [Header("Ataque (cono frontal)")]
     // attackFrontDot: ancho del cono. 0 = medio circulo (180 grados), 0.3 ~ 145, 0.5 ~ 120, 0.7 ~ 90.
     [SerializeField] protected float attackFrontDot = 0.2f;
@@ -40,11 +47,13 @@ public abstract class EnemyAI : MonoBehaviour
     [SerializeField] private string runAnim = "Run";
 
     [Header("Knockback recibido")]
-    [SerializeField] private float knockbackRecibidoForce = 5f;
-    [SerializeField] private float knockbackRecibidoDuracion = 0.15f;
+    [SerializeField] private float knockbackRecibidoForce = 9f;
+    [SerializeField] private float knockbackRecibidoDuracion = 0.25f;
 
     [Header("Muerte")]
     [SerializeField] private GameObject deathEffectPrefab;
+    [SerializeField] private string deathAnim;           // estado de muerte (vacio = destruir al instante)
+    [SerializeField] private float deathDuration = 0.8f; // cuanto dura la animacion antes de destruir
 
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -53,6 +62,7 @@ public abstract class EnemyAI : MonoBehaviour
     protected Collider2D selfCollider;
 
     private int idleHash, runHash;
+    private readonly HashSet<int> estadosInvalidos = new HashSet<int>();
     private State currentState;
     private Vector2 homePosition;
     private Vector2 wanderTarget;
@@ -61,6 +71,14 @@ public abstract class EnemyAI : MonoBehaviour
     private float stateTimer;
     private float searchTimer;
     private float knockbackTimer;
+    private float kiteStamina;
+    private float kiteCansadoTimer;
+    private bool kiteCansado;
+    private bool kiteHuyoEsteFrame;
+    private bool muriendo;
+
+    // Un enemigo a distancia solo puede huir si le queda aguante (no esta cansado).
+    protected bool PuedeHuir => MantieneDistancia && !kiteCansado;
 
     protected Transform Objetivo => currentTarget;
 
@@ -90,13 +108,16 @@ public abstract class EnemyAI : MonoBehaviour
     protected virtual void Start()
     {
         homePosition = transform.position;
+        kiteStamina = kiteResistencia;
         EntrarIdle();
     }
 
     protected virtual void Update()
     {
+        if (muriendo) return;
         if (ProcesarKnockback()) return;
 
+        kiteHuyoEsteFrame = false;
         switch (currentState)
         {
             case State.Idle:
@@ -105,6 +126,26 @@ public abstract class EnemyAI : MonoBehaviour
             case State.Attack: Atacar();           break;
             case State.Return: Regresar();         break;
         }
+        ActualizarCansancio();
+    }
+
+    // Gestiona el aguante para huir: drena mientras huye, se cansa al agotarlo (queda
+    // plantado kiteRecuperacion segundos) y regenera cuando no huye.
+    private void ActualizarCansancio()
+    {
+        if (!MantieneDistancia) return;
+        if (kiteCansado)
+        {
+            kiteCansadoTimer -= Time.deltaTime;
+            if (kiteCansadoTimer <= 0f) { kiteCansado = false; kiteStamina = kiteResistencia; }
+            return;
+        }
+        if (kiteHuyoEsteFrame)
+        {
+            kiteStamina -= Time.deltaTime;
+            if (kiteStamina <= 0f) { kiteCansado = true; kiteCansadoTimer = kiteRecuperacion; }
+        }
+        else kiteStamina = Mathf.Min(kiteStamina + Time.deltaTime, kiteResistencia);
     }
 
     // --- Estados ---
@@ -133,8 +174,8 @@ public abstract class EnemyAI : MonoBehaviour
         float dist = DistanciaAlObjetivo();
         if (dist > giveUpRange) { EntrarReturn(); return; }
 
-        if (MantieneDistancia && dist < distanciaRetirada)
-        { Alejarse(currentTarget.position, chaseSpeed); return; }
+        if (PuedeHuir && dist < distanciaRetirada)
+        { kiteHuyoEsteFrame = true; Alejarse(currentTarget.position, chaseSpeed); return; }
 
         if (dist <= attackRange) { currentState = State.Attack; return; }
         MoverHacia(currentTarget.position, chaseSpeed);
@@ -148,7 +189,7 @@ public abstract class EnemyAI : MonoBehaviour
         if (!AtaqueEnCurso)
         {
             if (dist > attackRange * 1.5f) { currentState = State.Chase; return; }
-            if (MantieneDistancia && dist < distanciaRetirada) { currentState = State.Chase; return; }
+            if (PuedeHuir && dist < distanciaRetirada) { currentState = State.Chase; return; }
         }
         if (DetenerEnAtaque) Detener();
         if (!AtaqueEnCurso) MirarHacia(currentTarget.position);
@@ -373,20 +414,35 @@ public abstract class EnemyAI : MonoBehaviour
 
     protected void Reproducir(int hash)
     {
-        if (animator != null && !animator.GetCurrentAnimatorStateInfo(0).shortNameHash.Equals(hash))
+        if (animator == null || estadosInvalidos.Contains(hash)) return;
+        if (!animator.GetCurrentAnimatorStateInfo(0).shortNameHash.Equals(hash))
             animator.Play(hash, 0, 0f);
+    }
+
+    // Relanza un estado desde el frame 0 (animaciones de ataque que se reinician en cada
+    // golpe). Usar en vez de animator.Play directo: respeta el guard de estados invalidos.
+    protected void ReproducirDesdeInicio(int hash)
+    {
+        if (animator == null || estadosInvalidos.Contains(hash)) return;
+        animator.Play(hash, 0, 0f);
     }
 
     // Reproduce el idle base (usado por subclases entre ataques).
     protected void ReproducirIdle() => Reproducir(idleHash);
 
-    // Avisa si un estado de animacion no existe en el controller. Las subclases pueden
-    // llamarlo para sus estados propios (ataque, guard). Solo corre en el editor.
+    // Reproduce el run base (subclases que se mueven durante su ataque, como el skitter de la arana).
+    protected void ReproducirRun() => Reproducir(runHash);
+
+    // Registra los estados que no existen en el controller para no intentar reproducirlos
+    // (cada Play fallido spamea un warning de Unity por frame). Avisa una sola vez en el
+    // editor. Las subclases la llaman para sus estados propios (ataque, guard).
     protected void ValidarEstado(string nombre, int hash)
     {
+        if (animator == null || animator.runtimeAnimatorController == null) return;
+        if (animator.HasState(0, hash)) return;
+        estadosInvalidos.Add(hash);
 #if UNITY_EDITOR
-        if (animator != null && animator.runtimeAnimatorController != null && !animator.HasState(0, hash))
-            Debug.LogError($"{name}: el Animator no tiene el estado '{nombre}'. Revisa el nombre en el inspector.");
+        Debug.LogError($"{name}: el Animator no tiene el estado '{nombre}'. Revisa el nombre en el inspector.");
 #endif
     }
 
@@ -394,9 +450,16 @@ public abstract class EnemyAI : MonoBehaviour
 
     private void Morir()
     {
+        if (muriendo) return;
+        muriendo = true;
+        rb.linearVelocity = Vector2.zero;
+        if (selfCollider != null) selfCollider.enabled = false; // el cadaver no estorba ni recibe golpes
         if (deathEffectPrefab != null)
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+
+        bool conAnim = !string.IsNullOrEmpty(deathAnim) && animator != null;
+        if (conAnim) animator.Play(deathAnim, 0, 0f);
+        Destroy(gameObject, conAnim ? deathDuration : 0f);
     }
 
     // --- Puntos de extension ---

@@ -70,7 +70,7 @@ public class MinotaurAI : EnemyAI
         {
             fase = Fase.Telegrafiando;
             faseTimer = telegrafioDuracion;
-            animator.Play(attackHash, 0, 0f);
+            ReproducirDesdeInicio(attackHash);
         }
     }
 

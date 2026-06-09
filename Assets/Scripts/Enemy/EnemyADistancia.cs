@@ -38,7 +38,7 @@ public class EnemyADistancia : EnemyAI
         {
             atacando = true;
             proyectilLanzado = false;
-            animator.Play(attackHash, 0, 0f);
+            ReproducirDesdeInicio(attackHash);
             attackTimer = cooldownAtaque;
         }
         if (!atacando) { ReproducirIdle(); return; }

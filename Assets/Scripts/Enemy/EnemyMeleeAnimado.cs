@@ -33,7 +33,7 @@ public abstract class EnemyMeleeAnimado : EnemyAI
         {
             atacando = true;
             golpeEntregado = false;
-            animator.Play(attackHash, 0, 0f);
+            ReproducirDesdeInicio(attackHash);
             attackTimer = cooldownAtaque;
         }
         if (!atacando) { ReproducirIdle(); return; }
