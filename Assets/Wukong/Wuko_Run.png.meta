@@ -1,0 +1,415 @@
+fileFormatVersion: 2
+guid: e8c58ba2b8cf8544e8a9db0f57aeb6cd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6392907087745262631
+    second: Wuko_Run_0
+  - first:
+      213: -957550567836162269
+    second: Wuko_Run_1
+  - first:
+      213: -3184909236391563768
+    second: Wuko_Run_2
+  - first:
+      213: 8239414936869358986
+    second: Wuko_Run_3
+  - first:
+      213: -1768984402623965008
+    second: Wuko_Run_4
+  - first:
+      213: -1264525124301907462
+    second: Wuko_Run_5
+  - first:
+      213: 8441809607087312079
+    second: Wuko_Run_6
+  - first:
+      213: -8870984635194415033
+    second: Wuko_Run_7
+  - first:
+      213: 7517171556836629099
+    second: Wuko_Run_8
+  - first:
+      213: 3223353630169999064
+    second: Wuko_Run_9
+  - first:
+      213: 6355081292198091220
+    second: Wuko_Run_10
+  - first:
+      213: -2315716014088120334
+    second: Wuko_Run_11
+  - first:
+      213: 454881806473384362
+    second: Wuko_Run_12
+  - first:
+      213: 2828867701120474275
+    second: Wuko_Run_13
+  - first:
+      213: 2746571815616996835
+    second: Wuko_Run_14
+  - first:
+      213: 8555684026857824642
+    second: Wuko_Run_15
+  - first:
+      213: -16425867538348533
+    second: Wuko_Run_16
+  - first:
+      213: 3906690056625193961
+    second: Wuko_Run_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Wuko_Run_0
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 40
+        width: 59
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dbddd0ffd4d747a0800000000000000
+      internalID: -6392907087745262631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_2
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 41
+        width: 60
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80e25038cedecc3d0800000000000000
+      internalID: -3184909236391563768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_3
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 41
+        width: 61
+        height: 66
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d45251b38485270800000000000000
+      internalID: 8239414936869358986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_4
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 40
+        width: 58
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b8546cee0e4377e0800000000000000
+      internalID: -1768984402623965008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_5
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 49
+        width: 58
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af99d646911837ee0800000000000000
+      internalID: -1264525124301907462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_7
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 41
+        width: 60
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 748e94b897ee3e480800000000000000
+      internalID: -8870984635194415033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_8
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 45
+        width: 55
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6adae804bb525860800000000000000
+      internalID: 7517171556836629099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_9
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 42
+        width: 5
+        height: 5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d6afbf6c07abbc20800000000000000
+      internalID: 3223353630169999064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wuko_Run_6
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 46
+        width: 57
+        height: 61
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f001bb2b0417ea64da87f2e4ed972785
+      internalID: 8441809607087312079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7c05c1f7c6cad204e852e7e60e3cfb5d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Wuko_Run_0: -6392907087745262631
+      Wuko_Run_1: -957550567836162269
+      Wuko_Run_10: 6355081292198091220
+      Wuko_Run_11: -2315716014088120334
+      Wuko_Run_12: 454881806473384362
+      Wuko_Run_13: 2828867701120474275
+      Wuko_Run_14: 2746571815616996835
+      Wuko_Run_15: 8555684026857824642
+      Wuko_Run_16: -16425867538348533
+      Wuko_Run_17: 3906690056625193961
+      Wuko_Run_2: -3184909236391563768
+      Wuko_Run_3: 8239414936869358986
+      Wuko_Run_4: -1768984402623965008
+      Wuko_Run_5: -1264525124301907462
+      Wuko_Run_6: 8441809607087312079
+      Wuko_Run_7: -8870984635194415033
+      Wuko_Run_8: 7517171556836629099
+      Wuko_Run_9: 3223353630169999064
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
