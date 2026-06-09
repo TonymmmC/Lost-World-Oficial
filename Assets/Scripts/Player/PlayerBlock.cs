@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerBlock : MonoBehaviour
 {
-    [SerializeField] private string shieldState = "Warrior_Guard_Black";
+    [SerializeField] private string shieldState = "Wuko_Guard";
     [SerializeField] private float blockDrainPerHit = 25f;
     [SerializeField] private float blockFrontDot = 0f;
 
@@ -55,10 +55,10 @@ public class PlayerBlock : MonoBehaviour
 
     private void Update()
     {
-        bool blockHeld = false;
+        bool blockHeld = Input.GetKey(KeyCode.L);
         var gamepad = Gamepad.current;
         if (gamepad != null)
-            blockHeld = gamepad.leftShoulder.isPressed;
+            blockHeld |= gamepad.rightTrigger.isPressed;
 
         if (stamina != null && stamina.IsEmpty)
             blockHeld = false;
