@@ -49,6 +49,7 @@ public class PauseMenu : MonoBehaviour
 
         menu = MenuUI.Construir("PAUSA",
             new MenuUI.Opcion("CONTINUA", Continuar),
+            new MenuUI.Opcion("CONTROLES", ControlesOverlay.Mostrar),
             new MenuUI.Opcion("REINICIAR", Reiniciar),
             new MenuUI.Opcion("SALIR", Salir));
     }

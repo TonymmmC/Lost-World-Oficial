@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 1cf03a32380096447946a573abde1914
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3576501080979597305
+    second: HardAttack_0
+  - first:
+      213: -5463098944932537740
+    second: HardAttack_1
+  - first:
+      213: 8395033678959096194
+    second: HardAttack_2
+  - first:
+      213: 3085606000793787381
+    second: HardAttack_3
+  - first:
+      213: 1012123747347275709
+    second: HardAttack_4
+  - first:
+      213: 4304816253493208497
+    second: HardAttack_5
+  - first:
+      213: 7700385718315350289
+    second: HardAttack_6
+  - first:
+      213: -2808477840258442901
+    second: HardAttack_7
+  - first:
+      213: -6911992297928949743
+    second: HardAttack_8
+  - first:
+      213: -1172495174213886676
+    second: HardAttack_9
+  - first:
+      213: -2265240078310487274
+    second: HardAttack_10
+  - first:
+      213: 672000709900950659
+    second: HardAttack_11
+  - first:
+      213: -4779358956421606020
+    second: HardAttack_12
+  - first:
+      213: 469113008572265805
+    second: HardAttack_13
+  - first:
+      213: -6844088722914310547
+    second: HardAttack_14
+  - first:
+      213: 5057123830317967781
+    second: HardAttack_15
+  - first:
+      213: -1011222186192854577
+    second: HardAttack_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HardAttack_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 494
+        height: 508
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f7e696b8c842a130800000000000000
+      internalID: 3576501080979597305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 48
+        width: 38
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47a1c7e447c2f24b0800000000000000
+      internalID: -5463098944932537740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_2
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 49
+        width: 47
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2813cc7f6a6218470800000000000000
+      internalID: 8395033678959096194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_3
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 40
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fb902a3f4642da20800000000000000
+      internalID: 3085606000793787381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_4
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 48
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbf1f5d8f29cb0e00800000000000000
+      internalID: 1012123747347275709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_5
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 47
+        width: 22
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b56acc1397cdbb30800000000000000
+      internalID: 4304816253493208497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_6
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 49
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1197dad23044dda60800000000000000
+      internalID: 7700385718315350289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_7
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 49
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b69d6d3c8484609d0800000000000000
+      internalID: -2808477840258442901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_8
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 49
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11085b750aba310a0800000000000000
+      internalID: -6911992297928949743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_9
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 48
+        width: 22
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2d1f18e9d57abfe0800000000000000
+      internalID: -1172495174213886676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_10
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 48
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b435986204090e0800000000000000
+      internalID: -2265240078310487274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_11
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 50
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38cd472d51d635900800000000000000
+      internalID: 672000709900950659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_12
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 51
+        width: 17
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c75986ce95e4cadb0800000000000000
+      internalID: -4779358956421606020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_13
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 40
+        width: 28
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d45f67bbbcf928600800000000000000
+      internalID: 469113008572265805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_14
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 49
+        width: 12
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d668f6b6199e401a0800000000000000
+      internalID: -6844088722914310547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_15
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 51
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a9e34374538e2640800000000000000
+      internalID: 5057123830317967781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HardAttack_16
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 47
+        width: 31
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc12bf287ca67f1f0800000000000000
+      internalID: -1011222186192854577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      HardAttack_0: 3576501080979597305
+      HardAttack_1: -5463098944932537740
+      HardAttack_10: -2265240078310487274
+      HardAttack_11: 672000709900950659
+      HardAttack_12: -4779358956421606020
+      HardAttack_13: 469113008572265805
+      HardAttack_14: -6844088722914310547
+      HardAttack_15: 5057123830317967781
+      HardAttack_16: -1011222186192854577
+      HardAttack_2: 8395033678959096194
+      HardAttack_3: 3085606000793787381
+      HardAttack_4: 1012123747347275709
+      HardAttack_5: 4304816253493208497
+      HardAttack_6: 7700385718315350289
+      HardAttack_7: -2808477840258442901
+      HardAttack_8: -6911992297928949743
+      HardAttack_9: -1172495174213886676
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -30,6 +30,7 @@ public class StorySequence : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.PlayMusic(Sonidos.Musica.Historia);
         CargarTexturas();
         ConstruirUI();
         if (EventSystem.current != null)
@@ -59,6 +60,8 @@ public class StorySequence : MonoBehaviour
         if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
             return true;
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+            return true;
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
             return true;
         return false;
     }
@@ -166,7 +169,7 @@ public class StorySequence : MonoBehaviour
         var go = new GameObject("Hint", typeof(Text));
         go.transform.SetParent(padre, false);
         var txt = go.GetComponent<Text>();
-        txt.text = "Continuar  (X / Espacio)";
+        txt.text = EntradaTactil.Activa ? "Toca para continuar" : "Continuar  (X / Espacio)";
         txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         txt.fontSize = 28;
         txt.color = new Color(1f, 1f, 1f, 0.8f);

@@ -218,6 +218,7 @@ public class BearAI : MonoBehaviour
             hitDelivered = false;
             animator.Play(attackHash, 0, 0f);
             attackTimer = attackCooldown;
+            AudioManager.PlayVozEnemigo(gameObject.name);
         }
 
         if (isPlayingAttack)

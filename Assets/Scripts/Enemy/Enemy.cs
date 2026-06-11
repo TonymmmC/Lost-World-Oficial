@@ -172,6 +172,7 @@ public class Enemy : MonoBehaviour
             hitTimer = attackHitDelay;
             animator.Play(attackState, 0, 0f);
             attackTimer = attackCooldown;
+            AudioManager.PlayVozEnemigo(gameObject.name);
         }
 
         if (isPlayingAttack && !hitDelivered)

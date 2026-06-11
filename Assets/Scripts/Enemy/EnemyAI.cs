@@ -11,6 +11,8 @@ public abstract class EnemyAI : MonoBehaviour
 {
     protected enum State { Idle, Wander, Chase, Attack, Return }
 
+    private const float VozCooldown = 2.5f; // segundos minimos entre voces de ataque del mismo enemigo
+
     [Header("Faccion")]
     [SerializeField] private int factionId = 0;
     public int FactionId => factionId;
@@ -71,6 +73,7 @@ public abstract class EnemyAI : MonoBehaviour
     private float stateTimer;
     private float searchTimer;
     private float knockbackTimer;
+    private float vozTimer;
     private float kiteStamina;
     private float kiteCansadoTimer;
     private bool kiteCansado;
@@ -188,7 +191,7 @@ public abstract class EnemyAI : MonoBehaviour
         if (PuedeHuir && dist < distanciaRetirada)
         { kiteHuyoEsteFrame = true; Alejarse(currentTarget.position, chaseSpeed); return; }
 
-        if (dist <= attackRange) { currentState = State.Attack; return; }
+        if (dist <= attackRange) { EntrarAtaque(); return; }
         MoverHacia(currentTarget.position, chaseSpeed);
     }
 
@@ -241,6 +244,16 @@ public abstract class EnemyAI : MonoBehaviour
         currentState = State.Return;
         currentTarget = null;
         AlPerderObjetivo();
+    }
+
+    // Entra a atacar y suelta la voz del enemigo, con cooldown para no spamear el clip
+    // cuando el ataque oscila entre Chase y Attack.
+    private void EntrarAtaque()
+    {
+        currentState = State.Attack;
+        if (Time.time < vozTimer) return;
+        vozTimer = Time.time + VozCooldown;
+        AudioManager.PlayVozEnemigo(gameObject.name);
     }
 
     // --- Deteccion por faccion ---

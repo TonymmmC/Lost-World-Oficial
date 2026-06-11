@@ -100,6 +100,7 @@ public class PlayerWeapons : MonoBehaviour
             : (Vector2)transform.position + direccion.normalized * offsetDisparo;
         EnemyProjectile flecha = poolFlechas.Obtener(origen, Quaternion.identity);
         flecha.Lanzar(origen, direccion, Forma.danio, Forma.velocidadProyectil, FaccionJugador, poolFlechas.Devolver, selfCollider);
+        AudioManager.PlaySFX(Sonidos.Sfx.Magia);
     }
 
 #if UNITY_EDITOR

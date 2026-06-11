@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
     private bool curando;
     private float curaTimer;
     private float healCooldownTimer;
+    private bool enTierra;               // dentro de una ZonaTierra: los pasos suenan a tierra
     private string accionState;          // estado de animacion de la accion en curso
     private const float SafetyMax = 3f;  // tope por si la animacion no termina (clip en loop / nombre mal)
 
@@ -130,8 +131,11 @@ public class PlayerMovement : MonoBehaviour
         HandleAttack();
         HandleSprint();
         HandleMovement();
+        HandlePasos();
         HandleAnimation();
     }
+
+    private void OnDisable() => AudioManager.StopPasos();
 
     // Forma activa segun prioridad: forma robada (transformacion) > forma de PlayerWeapons >
     // null (Wukong standalone, usa los campos serializados de este script).
@@ -230,6 +234,7 @@ public class PlayerMovement : MonoBehaviour
         hitTimer = fuerte ? heavyHitDelay : DelayGolpe;
         if (fuerte) heavyTimer = heavyCooldown;
         animator.Play(accionState, 0, 0f);
+        AudioManager.PlaySFX(fuerte ? Sonidos.Sfx.EspadaFuerte : Sonidos.Sfx.Espada);
     }
 
     private void IniciarCura()
@@ -239,6 +244,7 @@ public class PlayerMovement : MonoBehaviour
         accionState = healState;
         healCooldownTimer = healCooldown;
         animator.Play(healState, 0, 0f);
+        AudioManager.PlaySFX(Sonidos.Sfx.Curar);
         if (health != null) health.Curar(health.Max); // cura completa
         if (healEffectPrefab != null)
             Instantiate(healEffectPrefab, transform.position, Quaternion.identity);
@@ -373,6 +379,16 @@ public class PlayerMovement : MonoBehaviour
         if (!blocking && Mathf.Abs(x) > 0.3f)
             spriteRenderer.flipX = x < 0;
     }
+
+    private void HandlePasos()
+    {
+        bool moviendo = Time.timeScale > 0f && !isAttacking && !curando && moveInput.sqrMagnitude > 0.01f;
+        if (!moviendo) { AudioManager.StopPasos(); return; }
+        AudioManager.PlayPasos(enTierra ? Sonidos.Sfx.PasoTierra : Sonidos.Sfx.PasoPasto);
+    }
+
+    // La llaman las ZonaTierra al entrar/salir para cambiar el sonido de pasos.
+    public void EnZonaTierra(bool dentro) => enTierra = dentro;
 
     private void HandleAnimation()
     {
